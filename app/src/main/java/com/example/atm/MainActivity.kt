@@ -1,12 +1,11 @@
 package com.example.atm
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.CalendarContract.Colors
 import android.view.inputmethod.InputMethodManager
-import com.example.atm.data.model.User
 import com.example.atm.data.utils.SharedPreferences
 import com.example.atm.databinding.ActivityMainBinding
 
@@ -27,6 +26,13 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
 
         binding.textSaldo.text = sharedPreferences.getBalance().toString()
+
+        binding.btSair.setOnClickListener {
+            sharedPreferences.removeData()
+
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+        }
 
         binding.btRetirar.setOnClickListener {
             if (binding.editTextQt.text.isNotEmpty()) {
