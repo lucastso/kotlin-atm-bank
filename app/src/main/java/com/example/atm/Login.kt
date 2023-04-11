@@ -4,11 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import com.example.atm.data.model.User
 import com.example.atm.data.utils.SharedPreferences
 import com.example.atm.databinding.ActivityLoginBinding
-import com.example.atm.databinding.ActivityMainBinding
-import java.util.*
 
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -24,11 +21,6 @@ class Login : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
-        binding.btRegistrar.setOnClickListener {
-            val intent = Intent(this, Register::class.java)
-            startActivity(intent)
-        }
 
         binding.btEntrar.setOnClickListener {
             val inputMethodManager =
