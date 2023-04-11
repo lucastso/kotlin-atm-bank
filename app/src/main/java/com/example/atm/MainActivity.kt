@@ -56,7 +56,9 @@ class MainActivity : AppCompatActivity() {
             if(sharedPreferences.getBalance()!! < 25000) {
                 sharedPreferences.setBalance(sharedPreferences.getBalance()!! + 1000)
                 binding.textSaldo.text = sharedPreferences.getBalance().toString()
-                binding.textSaldo.setTextColor(Color.rgb(0, 0, 0))
+                if(sharedPreferences.getBalance()!! > 0) {
+                    binding.textSaldo.setTextColor(Color.rgb(0, 0, 0))
+                }
                 binding.editTextQt.error = null
             }
         }

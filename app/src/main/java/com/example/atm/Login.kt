@@ -43,12 +43,12 @@ class Login : AppCompatActivity() {
                 binding.editTextTextPassword.error = "Verifique sua senha!"
             }
 
-            sharedPreferences.setEmail(binding.editTextTextEmailAddress.text.toString())
+            /*sharedPreferences.setEmail(binding.editTextTextEmailAddress.text.toString())
             sharedPreferences.setPassword(binding.editTextTextPassword.text.toString())
             sharedPreferences.setLogin(true)
 
             val uuid: UUID = UUID.randomUUID()
-            val str: String = uuid.toString()
+            val str: String = uuid.toString()*/
 
             if(binding.editTextTextPassword.text.isNotEmpty() && binding.editTextTextEmailAddress.text.isNotEmpty()) {
                 val intent = Intent(this, MainActivity::class.java)
