@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.example.atm.data.utils.SharedPreferences
 import com.example.atm.databinding.ActivityLoginBinding
 
@@ -23,6 +24,9 @@ class Login : AppCompatActivity() {
         super.onStart()
 
         binding.btEntrar.setOnClickListener {
+            val email = binding.editTextTextEmailAddress.text.toString()
+            val password = binding.editTextTextPassword.text.toString()
+
             val inputMethodManager =
                 getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
@@ -42,9 +46,11 @@ class Login : AppCompatActivity() {
             val uuid: UUID = UUID.randomUUID()
             val str: String = uuid.toString()*/
 
-            if(binding.editTextTextPassword.text.isNotEmpty() && binding.editTextTextEmailAddress.text.isNotEmpty()) {
+            if(email == "lucastassisouza@gmail.com" && password == "Senha.123") {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+            } else {
+                Toast.makeText(applicationContext, "Verifique seus dados!", Toast.LENGTH_LONG).show()
             }
         }
     }

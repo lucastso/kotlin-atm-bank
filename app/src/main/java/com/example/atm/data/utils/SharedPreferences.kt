@@ -9,7 +9,6 @@ class SharedPreferences(context: Context) {
     private val LOGGED = "logged"
     private val pref: SharedPreferences = context.getSharedPreferences("SharedPreferences", 0)
     private val editor: SharedPreferences.Editor = pref.edit()
-
     fun setUser(user: User) {
         val gson = Gson()
         val json = gson.toJson(user)

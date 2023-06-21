@@ -6,6 +6,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.atm.data.utils.SharedPreferences
 import com.example.atm.databinding.ActivityMainBinding
 
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
         sharedPreferences = SharedPreferences(this)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(binding.root)
     }
 
@@ -28,8 +30,6 @@ class MainActivity : AppCompatActivity() {
         binding.textSaldo.text = sharedPreferences.getBalance().toString()
 
         binding.btSair.setOnClickListener {
-            sharedPreferences.removeData()
-
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
