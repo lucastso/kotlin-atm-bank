@@ -4,17 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import androidx.room.Room
-import com.example.atm.data.AppDatabase
-import com.example.atm.data.model.User
 import com.example.atm.data.utils.SharedPreferences
-import com.example.atm.databinding.ActivityMainBinding
 import com.example.atm.databinding.ActivityRegisterBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import java.util.*
-import kotlin.coroutines.coroutineContext
 
 class Register : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -53,38 +44,7 @@ class Register : AppCompatActivity() {
                 sharedPreferences.setEmail(binding.editTextTextEmailAddress.text.toString())
                 sharedPreferences.setPassword(binding.editTextTextPassword.text.toString())
                 sharedPreferences.setLogin(true)
-
-                val db = Room.databaseBuilder(
-                    applicationContext,
-                    AppDatabase::class.java, "users"
-                ).build()
-
-                /*scope.launch(Dispatchers.IO) {
-                    registerUser(db)
-                }*/
             }
-        }
-    }
-
-    suspend fun registerUser(db: AppDatabase) {
-        val uuid: UUID = UUID.randomUUID()
-        val str: String = uuid.toString()
-        val existingUser = db.userDao().findByEmail(binding.editTextTextEmailAddress.text.toString())
-
-        if (existingUser != null) {
-            binding.editTextTextEmailAddress.error = "E-mail já utilizado!"
-        } else {
-            val user = User(
-                str,
-                binding.editTextName.text.toString(),
-                binding.editTextTextEmailAddress.text.toString(),
-                binding.editTextTextPassword.text.toString(),
-            )
-
-            db.userDao().insert(user)
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
     }
 }

@@ -105,6 +105,14 @@
             android:autofillHints="false" />
 
         <Button
+            android:id="@+id/btColocar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="16dp"
+            android:backgroundTint="@color/black"
+            android:text="DEPOSITAR"/>
+
+        <Button
             android:id="@+id/btRetirar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,20 +120,10 @@
             android:backgroundTint="@color/black"
             android:text="RETIRAR"/>
 
-        <LinearLayout
-            android:id="@+id/btColocar"
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:paddingVertical="16dp"
-                android:layout_width="match_parent"
-                android:textAlignment="center"
-                android:layout_height="wrap_content"
-                android:text="Colocar 1000"
-                android:textColor="@color/white"/>
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerView" />
 
     </LinearLayout>
 
