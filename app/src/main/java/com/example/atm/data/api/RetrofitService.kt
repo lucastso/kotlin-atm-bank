@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 interface RetrofitService {
     companion object {
-        private var route: String = "http://127.0.0.1:8000/api/"
+        private var route: String = "https://10.0.0.139:8000/api/"
 
         var client: OkHttpClient = OkHttpClient.Builder().addInterceptor { chain ->
             val newRequest: Request = chain.request().newBuilder()

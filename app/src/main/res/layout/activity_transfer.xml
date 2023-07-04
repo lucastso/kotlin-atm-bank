@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="32dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".TransferActivity">
+
+    <EditText
+        android:inputType="number"
+        android:id="@+id/editTextQt"
+        android:layout_width="match_parent"
+        android:hint="Digite a quantia"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:autofillHints="false" />
+
+    <EditText
+        android:inputType="number"
+        android:id="@+id/editTextWho"
+        android:layout_width="match_parent"
+        android:hint="Digite o PIX (user id)"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:autofillHints="false" />
+
+    <Button
+        android:id="@+id/btColocar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="16dp"
+        android:backgroundTint="@color/black"
+        android:text="TRANSFERIR"/>
+
+</LinearLayout>

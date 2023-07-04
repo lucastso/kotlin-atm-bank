@@ -4,12 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
+import com.example.atm.data.model.RegisterRequest
+import com.example.atm.data.repository.AuthRepo
 import com.example.atm.data.utils.SharedPreferences
 import com.example.atm.databinding.ActivityRegisterBinding
 
 class Register : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var sharedPreferences: SharedPreferences
+    private var loginViewModel: LoginViewModel = LoginViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +44,19 @@ class Register : AppCompatActivity() {
             }
 
             if(binding.editTextTextPassword.text.isNotEmpty() && binding.editTextTextEmailAddress.text.isNotEmpty()) {
-                sharedPreferences.setEmail(binding.editTextTextEmailAddress.text.toString())
-                sharedPreferences.setPassword(binding.editTextTextPassword.text.toString())
-                sharedPreferences.setLogin(true)
+                var registerRequest = RegisterRequest(
+                    binding.editTextName.text.toString(),
+                    binding.editTextTextEmailAddress.text.toString(),
+                    binding.editTextTextPassword.text.toString()
+                )
+
+                loginViewModel.register(registerRequest)
+                AuthRepo.successRegister.observe(this) {
+                    sharedPreferences.setUserId(it.id)
+
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
     }

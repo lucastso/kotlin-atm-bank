@@ -28,8 +28,16 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(binding.root)
         recyclerView = binding.recyclerView
+    }
 
-        binding.textSaldo.text = sharedPreferences.getBalance().toString()
+    override fun onStart() {
+        super.onStart()
+
+        transactionViewModel.getBalance(sharedPreferences.getUserId())
+        TransactionRepo.successBalance.observe(this) {
+            binding.textSaldo.text = it.toString() ?: "0"
+        }
+
         val layoutManager = LinearLayoutManager(applicationContext)
         recyclerView.layoutManager = layoutManager
         transactionAdapter = TransactionAdapter(transactions)
@@ -40,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             if (quantity.isNotEmpty()) {
                 if (binding.textSaldo.text.toString().toInt() >= quantity.toInt()) {
                     val transactionRequest = TransactionRequest(
-                        1,
+                        sharedPreferences.getUserId(),
                         quantity.toInt()
                     )
                     transactionViewModel.postWithdraw(transactionRequest)
@@ -62,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             val quantity = binding.editTextQt.text.toString()
             if (quantity.isNotEmpty()) {
                 val transactionRequest = TransactionRequest(
-                    1,
+                    sharedPreferences.getUserId(),
                     quantity.toInt()
                 )
                 transactionViewModel.postDeposit(transactionRequest)
@@ -75,6 +83,11 @@ class MainActivity : AppCompatActivity() {
                 binding.editTextQt.error = "Digite um valor!"
                 binding.textSaldo.setTextColor(Color.rgb(255, 0, 0))
             }
+        }
+
+        binding.btTransfer.setOnClickListener {
+            val intent = Intent(this, TransferActivity::class.java)
+            startActivity(intent)
         }
 
         binding.btSair.setOnClickListener {

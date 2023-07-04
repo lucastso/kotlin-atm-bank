@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import com.example.atm.data.model.LoginRequest
+import com.example.atm.data.repository.AuthRepo
 import com.example.atm.data.utils.SharedPreferences
 import com.example.atm.databinding.ActivityLoginBinding
 
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var sharedPreferences: SharedPreferences
+    private var loginViewModel: LoginViewModel = LoginViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +42,17 @@ class Login : AppCompatActivity() {
                 binding.editTextTextPassword.error = "Verifique sua senha!"
             }
 
-            if(email == "lucastassisouza@gmail.com" && password == "Senha.123") {
+            val loginRequest = LoginRequest(
+                email,
+                password
+            )
+
+            loginViewModel.login(loginRequest)
+            AuthRepo.successLogin.observe(this) {
+                sharedPreferences.setUserId(it.id)
+
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-            } else {
-                Toast.makeText(applicationContext, "Verifique seus dados!", Toast.LENGTH_LONG).show()
             }
         }
     }

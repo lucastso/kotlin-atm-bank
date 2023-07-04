@@ -19,6 +19,11 @@ class SharedPreferences(context: Context) {
         editor.commit()
     }
 
+    fun setUserId(user_id: Int) {
+        editor.putInt("user_id", user_id)
+        editor.commit()
+    }
+
     fun setEmail(email: String) {
         editor.putString("email", email)
         editor.commit()
@@ -43,6 +48,10 @@ class SharedPreferences(context: Context) {
 
     fun getBalance(): Int {
         return pref.getInt("balance", 0)
+    }
+
+    fun getUserId(): Int {
+        return pref.getInt("user_id", 0)
     }
 
     fun removeData() {

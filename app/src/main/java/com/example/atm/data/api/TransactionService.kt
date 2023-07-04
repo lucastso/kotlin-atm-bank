@@ -1,6 +1,7 @@
 package com.example.atm.data.api
 
 import com.example.atm.data.model.TransactionRequest
+import com.example.atm.data.model.TransferRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -16,4 +17,7 @@ interface TransactionService {
 
     @GET("balance/{user_id}")
     fun getBalance(@Path("user_id") user_id: Int): Call<Int>
+
+    @GET("transfer")
+    fun postTransfer(@Body transactionRequest: TransferRequest): Call<String>
 }

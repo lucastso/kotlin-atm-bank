@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.atm.data.api.RetrofitService
 import com.example.atm.data.api.TransactionService
 import com.example.atm.data.model.TransactionRequest
+import com.example.atm.data.model.TransferRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,9 +12,11 @@ import retrofit2.Response
 class TransactionRepo() {
     companion object {
         val successWithdraw = MutableLiveData<String>()
-        val successDeposit = MutableLiveData<String>()
         val failWithdraw = MutableLiveData<String>()
+        val successDeposit = MutableLiveData<String>()
         val failDeposit = MutableLiveData<String>()
+        val successTransfer = MutableLiveData<String>()
+        val failTransfer = MutableLiveData<String>()
         val successBalance = MutableLiveData<Int>()
 
         fun postWithdraw(transactionRequest: TransactionRequest) {
@@ -47,7 +50,26 @@ class TransactionRepo() {
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     failDeposit.postValue("n foi deposit")
-                    println("n foi deposit")
+                    println(t.message)
+                    println(t.cause)
+                }
+            })
+        }
+
+        fun postTransfer(transferRequest: TransferRequest) {
+            val retrofitClient = RetrofitService.getInstance()
+            val endpoint = retrofitClient.create(TransactionService::class.java)
+            val callback = endpoint.postTransfer(transferRequest)
+
+            callback.enqueue(object: Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    successDeposit.postValue(response.body())
+                    println("foi transfer")
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    failDeposit.postValue("n foi transfer")
+                    println("n foi transfer")
                 }
             })
         }
